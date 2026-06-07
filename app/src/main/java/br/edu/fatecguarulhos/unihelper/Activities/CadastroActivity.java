@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.UsuarioDAO;
 import br.edu.fatecguarulhos.unihelper.Formularios.FormularioCadastro;
+import br.edu.fatecguarulhos.unihelper.Models.Usuario;
 import br.edu.fatecguarulhos.unihelper.R;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -48,6 +49,21 @@ public class CadastroActivity extends AppCompatActivity {
         formulario = new FormularioCadastro(editNome, editEmail, editSenha, editConfirmarSenha);
     }
     public void cadastrarUsuario(View view){
-        formulario.formularioValido();
+        if(formulario.formularioValido()) {
+            try{
+                usuarioDAO = new UsuarioDAO(this);
+                Usuario u = criarUsuario();
+                //usuarioDAO.cadastrarUsuario(u);
+            } catch (Exception e){
+                System.out.println(e.getStackTrace());
+            }
+        }
+    }
+    private Usuario criarUsuario(){
+        Usuario usuario = new Usuario();
+        usuario.setNome(editNome.getText().toString());
+        usuario.setEmail(editEmail.getText().toString());
+        usuario.setSenha(String.valueOf(editNome.getText().toString().hashCode()));
+        return usuario;
     }
 }

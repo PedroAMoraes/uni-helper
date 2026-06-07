@@ -4,6 +4,8 @@ import android.widget.EditText;
 
 import java.util.List;
 
+import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+
 public class FormularioCadastro {
     private EditText editNome, editEmail, editSenha, editConfirmarSenha;
     private List<EditText> campos;
@@ -38,5 +40,12 @@ public class FormularioCadastro {
             return false;
         }
         else return true;
+    }
+    public Usuario getUsuario(){
+        Usuario usuario = new Usuario();
+        usuario.setNome(editNome.getText().toString());
+        usuario.setEmail(editEmail.getText().toString());
+        usuario.setSenha(editEmail.getText().toString());
+        return usuario;
     }
 }

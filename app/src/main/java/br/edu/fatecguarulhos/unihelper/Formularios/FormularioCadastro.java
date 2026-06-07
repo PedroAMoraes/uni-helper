@@ -3,6 +3,8 @@ package br.edu.fatecguarulhos.unihelper.Formularios;
 import android.widget.EditText;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.edu.fatecguarulhos.unihelper.Models.Usuario;
 
@@ -18,11 +20,28 @@ public class FormularioCadastro {
     }
     public Boolean formularioValido(){
         boolean valido = false;
-        for (int i = 0; i < campos.size(); i++)
+        int camposVazios = 0;
+        for (int i = 0; i < campos.size(); i++) {
             valido = verificarSeEstaVazio(campos.get(i));
+            if(!valido) camposVazios++;
+        }
         List<Boolean> camposValidos = List.of(validarSenha());
+        boolean emailValido = validarEmail();
+        return (senhasBatem() && camposVazios == 0 && emailValido);
+    }
+    private Boolean validarEmail(){
+        String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+        String email = editEmail.getText().toString();
+        if (email.isBlank()) {
+                return false;
+            }
+        Matcher matcher = EMAIL_PATTERN.matcher(email);
+        boolean valido = matcher.matches();
+        if(!valido) editEmail.setError("Email inválido!");
         return valido;
     }
+
     private Boolean validarSenha(){
         boolean valido = false;
         String senha = editSenha.getText().toString();
@@ -31,8 +50,16 @@ public class FormularioCadastro {
         else valido = true;
         return valido;
     }
-    private void senhasBatem(){
-
+    private Boolean senhasBatem(){
+        String senha = editSenha.getText().toString();
+        String confirmarSenha = editConfirmarSenha.getText().toString();
+        if(senha.isBlank() || confirmarSenha.isBlank())
+            return false;
+        if(senha.toString().equals(confirmarSenha.toString())) return true;
+        else {
+            editConfirmarSenha.setError("A senha deve ser igual nos dois campos");
+            return false;
+        }
     }
     private boolean verificarSeEstaVazio(EditText editText){
         if(editText.getText().toString().isBlank()){

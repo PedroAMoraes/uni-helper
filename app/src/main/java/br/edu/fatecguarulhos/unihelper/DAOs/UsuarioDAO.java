@@ -27,8 +27,12 @@ public class UsuarioDAO {
         this.context = context;
     }
     public void cadastrarUsuario(Usuario usuario){
-        registrarUsuarioFirebaseAuth(usuario);
-        salvarUsuarioFirestore(usuario);
+        try{
+            registrarUsuarioFirebaseAuth(usuario);
+            salvarUsuarioFirestore(usuario);
+        } catch (Exception e){
+            System.out.println("ERRO -> " +e.getStackTrace());
+        }
     }
     private void registrarUsuarioFirebaseAuth(Usuario usuario){
         auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(context.getMainExecutor(), new OnCompleteListener<AuthResult>() {

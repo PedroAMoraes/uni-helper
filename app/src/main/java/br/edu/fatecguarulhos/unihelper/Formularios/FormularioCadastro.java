@@ -24,9 +24,8 @@ public class FormularioCadastro {
             if(!valido) camposVazios++;
         }
         List<Boolean> camposValidos = List.of(validarSenha());
-        if(validarEmail())
-            System.out.println("EmaiValido");
-        return (senhasBatem() && camposVazios == 0);
+        boolean emailValido = validarEmail();
+        return (senhasBatem() && camposVazios == 0 && emailValido);
     }
     private Boolean validarEmail(){
         String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -36,7 +35,9 @@ public class FormularioCadastro {
                 return false;
             }
         Matcher matcher = EMAIL_PATTERN.matcher(email);
-        return matcher.matches();
+        boolean valido = matcher.matches();
+        if(!valido) editEmail.setError("Email inválido!");
+        return valido;
     }
 
     private Boolean validarSenha(){

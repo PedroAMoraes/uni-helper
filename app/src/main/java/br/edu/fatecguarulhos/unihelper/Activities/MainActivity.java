@@ -14,7 +14,7 @@ import br.edu.fatecguarulhos.unihelper.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Intent it
+    private Intent it;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

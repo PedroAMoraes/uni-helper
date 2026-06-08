@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                         else Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
 }

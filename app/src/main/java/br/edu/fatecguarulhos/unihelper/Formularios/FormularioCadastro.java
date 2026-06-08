@@ -72,7 +72,7 @@ public class FormularioCadastro {
         Usuario usuario = new Usuario();
         usuario.setNome(editNome.getText().toString());
         usuario.setEmail(editEmail.getText().toString());
-        usuario.setSenha(editEmail.getText().toString());
+        usuario.setSenha(editSenha.getText().toString());
         return usuario;
     }
 }

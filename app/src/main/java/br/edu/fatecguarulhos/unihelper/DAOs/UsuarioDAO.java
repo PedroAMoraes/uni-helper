@@ -1,6 +1,7 @@
 package br.edu.fatecguarulhos.unihelper.DAOs;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,7 @@ public class UsuarioDAO {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    usuario.setId(auth.getUid());
+                    usuario.setId(task.getResult().getUser().getUid());
                 }else {
                     throw new RuntimeException("Usuário não pôde ser cadastrado");
                 }
@@ -47,11 +48,11 @@ public class UsuarioDAO {
         });
     }
     private void salvarUsuarioFirestore(Usuario usuario){
-        usuariosCollection.add(usuario)
+        FirebaseFirestore.getInstance().collection("usuarios").add(usuario)
                 .addOnSuccessListener(documentReference -> {
-
+                    Log.d("","Usuario cadastrado");
                 }).addOnFailureListener( e ->{
-
+                    Log.e("",e.getMessage());
                 });
     }
 }

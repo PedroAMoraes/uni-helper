@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import br.edu.fatecguarulhos.unihelper.models.Usuario;
@@ -44,11 +45,13 @@ public class UsuarioDAO {
         });
     }
     private void salvarUsuarioFirestore(Usuario usuario){
-        FirebaseFirestore.getInstance().collection("usuarios").add(usuario)
-                .addOnSuccessListener(documentReference -> {
-                    Log.d("","Usuario cadastrado");
-                }).addOnFailureListener( e ->{
-                    Log.e("",e.getMessage());
-                });
+        DocumentReference docReference = FirebaseFirestore.getInstance().collection("usuarios").document();
+        String uid = docReference.getId();
+        usuario.setId(uid);
+        docReference.set(usuario).addOnSuccessListener(documentReference -> {
+            Log.d("","Usuario cadastrado");
+        }).addOnFailureListener( e ->{
+            Log.e("",e.getMessage());
+        });
     }
 }

@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.cards;
+package br.edu.fatecguarulhos.unihelper.components;
 
 import android.content.Context;
 import android.util.AttributeSet;

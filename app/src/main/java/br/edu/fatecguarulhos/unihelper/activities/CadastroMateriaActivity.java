@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.Activities;
+package br.edu.fatecguarulhos.unihelper.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
-import br.edu.fatecguarulhos.unihelper.Formularios.FormularioMateria;
-import br.edu.fatecguarulhos.unihelper.Models.Materia;
+import br.edu.fatecguarulhos.unihelper.formularios.FormularioMateria;
+import br.edu.fatecguarulhos.unihelper.models.Materia;
 import br.edu.fatecguarulhos.unihelper.R;
 
 public class CadastroMateriaActivity extends AppCompatActivity {

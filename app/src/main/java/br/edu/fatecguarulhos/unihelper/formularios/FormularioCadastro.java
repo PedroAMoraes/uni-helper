@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.Formularios;
+package br.edu.fatecguarulhos.unihelper.formularios;
 
 import android.widget.EditText;
 
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
 public class FormularioCadastro {
     private EditText editNome, editEmail, editSenha, editConfirmarSenha;

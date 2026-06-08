@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.Activities;
+package br.edu.fatecguarulhos.unihelper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

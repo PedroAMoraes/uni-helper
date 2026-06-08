@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
 public class UsuarioDAORealtime {
 

@@ -2,7 +2,6 @@ package br.edu.fatecguarulhos.unihelper.DAOs;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -12,11 +11,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import br.edu.fatecguarulhos.unihelper.Activities.CadastroActivity;
-import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
 public class UsuarioDAO {
     private CollectionReference usuariosCollection;

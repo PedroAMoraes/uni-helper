@@ -2,17 +2,10 @@ package br.edu.fatecguarulhos.unihelper.DAOs;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import br.edu.fatecguarulhos.unihelper.Models.Materia;
-import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class MateriaDAO {
 

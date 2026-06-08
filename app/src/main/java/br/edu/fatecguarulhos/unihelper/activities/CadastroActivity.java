@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.Activities;
+package br.edu.fatecguarulhos.unihelper.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.UsuarioDAO;
-import br.edu.fatecguarulhos.unihelper.DAOs.UsuarioDAORealtime;
-import br.edu.fatecguarulhos.unihelper.Formularios.FormularioCadastro;
-import br.edu.fatecguarulhos.unihelper.Models.Usuario;
+import br.edu.fatecguarulhos.unihelper.formularios.FormularioCadastro;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 import br.edu.fatecguarulhos.unihelper.R;
 
 public class CadastroActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.Models;
+package br.edu.fatecguarulhos.unihelper.models;
 
 import java.time.LocalDate;
 

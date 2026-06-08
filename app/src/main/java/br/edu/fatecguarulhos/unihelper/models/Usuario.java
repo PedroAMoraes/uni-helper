@@ -1,4 +1,4 @@
-package br.edu.fatecguarulhos.unihelper.Models;
+package br.edu.fatecguarulhos.unihelper.models;
 
 public class Usuario {
     private String id;

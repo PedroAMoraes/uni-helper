@@ -3,6 +3,7 @@ package br.edu.fatecguarulhos.unihelper.Activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,7 @@ public class CadastroActivity extends AppCompatActivity {
                 usuarioDAO = new UsuarioDAO(this);
                 Usuario u = criarUsuario();
                 usuarioDAO.cadastrarUsuario(u);
+                Toast.makeText(this, "Cadastro efetuado!", Toast.LENGTH_SHORT).show();
             } catch (Exception e){
                 System.out.println(e.getStackTrace());
             }

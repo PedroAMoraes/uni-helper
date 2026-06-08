@@ -27,17 +27,19 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/edtNota"
+            android:id="@+id/edtQtdAvaliacoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Nota Atual da Matéria"
+            android:hint="Quantidade de avaliações"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/edtData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
             android:ems="10"
             android:hint="Data da Proxima Prova/Projeto"
             android:inputType="date" />
@@ -58,6 +60,7 @@
             android:id="@+id/btnSalvarMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="salvarMateria"
             android:text="Salvar" />
 
     </LinearLayout>

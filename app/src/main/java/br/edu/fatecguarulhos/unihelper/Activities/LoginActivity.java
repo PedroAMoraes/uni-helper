@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     public void efetuarLogin(View view){
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
+        if(inputVazio(email, senha)) return;
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -63,6 +64,19 @@ public class LoginActivity extends AppCompatActivity {
                         else Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private boolean inputVazio(String email, String senha){
+        boolean inputVazio = false;
+        if(email.isBlank()){
+            inputVazio = true;
+            editEmail.setError("Campo não pode estar vazio!");
+        }
+        if(senha.isBlank()){
+            inputVazio = true;
+            editSenha.setError("Campo não pode estar vazio!");
+        }
+        return inputVazio;
     }
 
 }

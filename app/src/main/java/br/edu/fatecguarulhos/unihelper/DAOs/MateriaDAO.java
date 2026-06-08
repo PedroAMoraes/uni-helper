@@ -32,8 +32,15 @@ public class MateriaDAO {
     private void registrarMateriaFirebaseAuth(Materia materia){
     }
     private void salvarMateriaFirestore(Materia materia){
+        /*
         materiaColletion.add(materia)
                 .addOnSuccessListener(documentReference -> {
-                }).addOnFailureListener( e ->{});
+                }).addOnFailureListener( e ->{System.out.println("Erro -> " + e.getStackTrace());});
+         */
+        materiaColletion.document(materia.getNome()).set(materia)
+                .addOnSuccessListener(documentReference -> {
+                }).addOnFailureListener(
+                        e ->{System.out.println("Erro -> " + e.getStackTrace());}
+                );
     }
 }

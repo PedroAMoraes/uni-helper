@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,6 +44,31 @@ public class MateriaDAO {
                 .update("materias", FieldValue.arrayUnion(materia))
                 .addOnSuccessListener(aVoid -> {
 
+        });
+    }
+    public void getMaterias(FirebaseCallback callback){
+
+        DocumentReference docRef = materiaColletion.document(uidAluno);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        Usuario aluno = document.toObject(Usuario.class);
+
+                        if (aluno != null && aluno.getMaterias() != null) {
+                            List<Materia> materiaList = aluno.getMaterias();
+                            callback.onCallbackForAll(materiaList);
+                        }
+                    } else {
+                        Log.d("FirestoreData", "No such document exists");
+                    }
+                } else {
+                    Log.d("FirestoreData", "Fetch failed with: ", task.getException());
+                }
+            }
         });
     }
 }

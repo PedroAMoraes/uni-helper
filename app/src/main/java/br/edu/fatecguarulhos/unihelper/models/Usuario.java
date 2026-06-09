@@ -2,13 +2,14 @@ package br.edu.fatecguarulhos.unihelper.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Usuario {
     private String id;
     private String nome;
     private String email;
     private String senha;
-    private List<Materia> materias = new ArrayList<>();
+    private List<Materia> materias;
 
     public String getId() {
         return id;

@@ -19,7 +19,7 @@
             android:layout_height="43dp" />
 
         <EditText
-            android:id="@+id/edtMateriaManu"
+            android:id="@+id/edtMateria_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -27,7 +27,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/edtNotaManu"
+            android:id="@+id/edtQtdAvaliacoes_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -35,7 +35,7 @@
             android:inputType="number" />
 
         <EditText
-            android:id="@+id/edtDataManu"
+            android:id="@+id/edtData_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -43,7 +43,7 @@
             android:inputType="date" />
 
         <EditText
-            android:id="@+id/edtFormulaManu"
+            android:id="@+id/edtFormula_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

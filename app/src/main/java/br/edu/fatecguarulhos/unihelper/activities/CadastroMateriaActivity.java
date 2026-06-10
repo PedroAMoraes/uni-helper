@@ -42,7 +42,7 @@ public class CadastroMateriaActivity extends AppCompatActivity {
     private void iniciaizarComponentes() {
         btnSalvar = findViewById(R.id.btnSalvarMateria);
         edtMateria = findViewById(R.id.edtMateria);
-        edtQtdAvaliacoes = findViewById(R.id.edtQtdAvaliacoes);
+        edtQtdAvaliacoes = findViewById(R.id.edtQtdAvaliacoes_manutencaoMateria);
         edtData = findViewById(R.id.edtData);
         edtFormula = findViewById(R.id.edtFormula);
         formMateria = new FormularioMateria(edtMateria, edtQtdAvaliacoes, edtData, edtFormula);

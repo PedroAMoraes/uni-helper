@@ -22,7 +22,7 @@ import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class ManutecaoMateria extends AppCompatActivity {
 
-    private EditText edtMateriaManu, edtNotaManu, edtDataManu, edtFormulaManu;
+    private EditText edtMateria, edtQtdAvaliacoes, edtData, edtFormula;
     private Materia materia;
     private FormularioMateria formMateria;
     private MateriaDAO materiaDAO;
@@ -44,20 +44,20 @@ public class ManutecaoMateria extends AppCompatActivity {
     private void inicializarComponentes(){
         Intent it = getIntent();
         materia = new Gson().fromJson(it.getStringExtra("jsonMateria"),Materia.class);
-        edtMateriaManu = findViewById(R.id.edtMateriaManu);
-        edtNotaManu = findViewById(R.id.edtNotaManu);
-        edtDataManu = findViewById(R.id.edtDataManu);
-        edtFormulaManu = findViewById(R.id.edtFormulaManu);
+        edtMateria = findViewById(R.id.edtMateria_manutencaoMateria);
+        edtQtdAvaliacoes = findViewById(R.id.edtQtdAvaliacoes_manutencaoMateria);
+        edtData = findViewById(R.id.edtData_manutencaoMateria);
+        edtFormula = findViewById(R.id.edtFormula_manutencaoMateria);
         btnDeletar = findViewById(R.id.btnDeletar);
         btnAlterar = findViewById(R.id.btnAlterar);
-        formMateria = new FormularioMateria(edtMateriaManu, edtNotaManu, edtDataManu, edtFormulaManu);
+        formMateria = new FormularioMateria(edtMateria, edtQtdAvaliacoes, edtData, edtFormula);
         materiaDAO = new MateriaDAO(this, FirebaseAuth.getInstance().getUid());
     }
     private void configurarComponentes(){
-        edtMateriaManu.setText(materia.getNome());
-        edtDataManu.setText(materia.getDataProva());
-        edtFormulaManu.setText(materia.getFormulaMedia());
-        edtNotaManu.setText(String.valueOf(materia.getQtdAvaliacoes()));
+        edtMateria.setText(materia.getNome());
+        edtData.setText(materia.getDataProva());
+        edtFormula.setText(materia.getFormulaMedia());
+        edtQtdAvaliacoes.setText(String.valueOf(materia.getQtdAvaliacoes()));
     }
     public void salvarMateria(View view){
         if(formMateria.camposValidos()){
@@ -66,10 +66,10 @@ public class ManutecaoMateria extends AppCompatActivity {
         }
     }
     private void atualizarMateria(){
-        materia.setNome(edtMateriaManu.getText().toString());
-        materia.setQtdAvaliacoes(Integer.valueOf(edtNotaManu.getText().toString()));
-        materia.setDataProva(edtDataManu.getText().toString());
-        materia.setFormulaMedia(edtFormulaManu.getText().toString());
+        materia.setNome(edtMateria.getText().toString());
+        materia.setQtdAvaliacoes(Integer.valueOf(edtQtdAvaliacoes.getText().toString()));
+        materia.setDataProva(edtData.getText().toString());
+        materia.setFormulaMedia(edtFormula.getText().toString());
     }
 
     public void voltar(View view){

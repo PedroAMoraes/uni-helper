@@ -106,7 +106,7 @@ public class ManutecaoMateria extends AppCompatActivity {
     private void atualizarNota(){
         String atividade = spnAtividades.getSelectedItem().toString();
         String inputNota = edtNotaAtividade.getText().toString();
-        Double nota = Double.valueOf(inputNota.isEmpty() ? "0" : inputNota);
+        Double nota = inputNota.isEmpty() ? 0.0 : Double.parseDouble(inputNota);
         notas.put(atividade, nota);
     }
     public void salvarMateria(View view){

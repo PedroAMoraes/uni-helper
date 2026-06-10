@@ -18,6 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="43dp" />
 
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome matéria" />
+
         <EditText
             android:id="@+id/edtMateria_manutencaoMateria"
             android:layout_width="match_parent"
@@ -25,6 +31,12 @@
             android:ems="10"
             android:hint="Nome da Matéria"
             android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantidade avaliações" />
 
         <EditText
             android:id="@+id/edtQtdAvaliacoes_manutencaoMateria"
@@ -34,12 +46,39 @@
             android:hint="Nota Atual da Matéria"
             android:inputType="number" />
 
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Média mínima" />
+
         <EditText
             android:id="@+id/edtMediaMinima_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Formula de média" />
+
+        <EditText
+            android:id="@+id/edtFormula_manutencaoMateria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789Aa+-*/() "
+            android:ems="10"
+            android:hint="Formula de Média da Matéria"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data proxima atividade" />
 
         <EditText
             android:id="@+id/edtData_manutencaoMateria"
@@ -51,14 +90,11 @@
             android:hint="Data da Proxima Prova/Projeto"
             android:inputType="date" />
 
-        <EditText
-            android:id="@+id/edtFormula_manutencaoMateria"
+        <TextView
+            android:id="@+id/textView17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Formula de Média da Matéria"
-            android:inputType="text"
-            android:digits="0123456789Aa+-*/() " />
+            android:text="Nota por atividade" />
 
         <Spinner
             android:id="@+id/spnrAtividades"
@@ -82,7 +118,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="236dp" />
+            android:layout_height="71dp" />
 
         <Button
             android:id="@+id/btnAlterar"

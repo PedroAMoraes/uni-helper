@@ -13,8 +13,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashMap;
+
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.formularios.FormularioMateria;
+import br.edu.fatecguarulhos.unihelper.interfaces.FirebaseCallback;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
 import br.edu.fatecguarulhos.unihelper.R;
 

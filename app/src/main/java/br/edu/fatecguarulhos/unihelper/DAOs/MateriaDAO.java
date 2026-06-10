@@ -16,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,11 +41,18 @@ public class MateriaDAO {
         salvarMateriaFirestore(materia);
     }
     private void salvarMateriaFirestore(Materia materia){
+        /*
         materiaColletion.document(uidAluno)
                 .update("materias", FieldValue.arrayUnion(materia))
                 .addOnSuccessListener(aVoid -> {
 
         });
+         */
+        materiaColletion.document(uidAluno)
+                .update(("materias." + materia.getId()), materia)
+                .addOnSuccessListener(aVoid -> {
+
+                });
     }
     public void getMaterias(FirebaseCallback callback){
 
@@ -59,7 +67,7 @@ public class MateriaDAO {
                         Usuario aluno = document.toObject(Usuario.class);
 
                         if (aluno != null && aluno.getMaterias() != null) {
-                            List<Materia> materiaList = aluno.getMaterias();
+                            HashMap<String,Materia> materiaList = aluno.getMaterias();
                             callback.onCallbackForAll(materiaList);
                         }
                     } else {

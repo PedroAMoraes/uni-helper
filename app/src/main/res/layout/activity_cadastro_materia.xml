@@ -35,6 +35,13 @@
             android:inputType="number" />
 
         <EditText
+            android:id="@+id/edtMediaMinima_cadastroMateria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <EditText
             android:id="@+id/edtData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +57,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Formula de Média da Matéria"
-            android:inputType="text" />
+            android:inputType="text"
+            android:digits="0123456789Aa+-*/() "/>
 
         <Space
             android:layout_width="match_parent"

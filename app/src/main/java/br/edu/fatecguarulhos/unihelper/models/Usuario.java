@@ -1,6 +1,7 @@
 package br.edu.fatecguarulhos.unihelper.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,7 +10,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private List<Materia> materias;
+    private HashMap<String, Materia> materias;
 
     public String getId() {
         return id;
@@ -47,14 +48,11 @@ public class Usuario {
         if(senha.isBlank()) throw new RuntimeException("Senha não pode estar vazia!");
     }
 
-    public List<Materia> getMaterias() {
+    public HashMap<String, Materia> getMaterias() {
         return materias;
     }
 
-    public void setMaterias(List<Materia> materias) {
+    public void setMaterias(HashMap<String, Materia> materias) {
         this.materias = materias;
-    }
-    public void addMateria(Materia materia){
-        materias.add(materia);
     }
 }

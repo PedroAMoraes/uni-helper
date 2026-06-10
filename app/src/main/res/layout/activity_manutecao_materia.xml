@@ -50,6 +50,20 @@
             android:hint="Formula de Média da Matéria"
             android:inputType="number" />
 
+        <Spinner
+            android:id="@+id/spnrAtividades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <EditText
+            android:id="@+id/edtNotaAtividade_manutencaoMateria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="236dp" />

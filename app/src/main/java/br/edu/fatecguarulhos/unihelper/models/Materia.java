@@ -14,6 +14,7 @@ public class Materia {
     private String nome, formulaMedia, id, dataProva;
     private int qtdAvaliacoes;
     private HashMap<String, Double> notas = new HashMap<>();
+    private double mediaMinima;
 
     public String getId() {
         return id;
@@ -38,6 +39,14 @@ public class Materia {
     public String getNome() { return nome; }
 
     public void setNome(String nome) { this.nome = nome; }
+
+    public double getMediaMinima() {
+        return mediaMinima;
+    }
+
+    public void setMediaMinima(double mediaMinima) {
+        this.mediaMinima = mediaMinima;
+    }
 
     public String getFormulaMedia() { return formulaMedia; }
 

@@ -30,7 +30,7 @@ import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class ManutecaoMateria extends AppCompatActivity {
 
-    private EditText edtMateria, edtQtdAvaliacoes, edtData, edtFormula, edtNotaAtividade;
+    private EditText edtMateria, edtQtdAvaliacoes, edtMediaMinima, edtData, edtFormula, edtNotaAtividade;
     private TextView txtMedia;
     private Spinner spnAtividades;
     private Materia materia;
@@ -58,6 +58,7 @@ public class ManutecaoMateria extends AppCompatActivity {
         notas = materia.getNotas();
         edtMateria = findViewById(R.id.edtMateria_manutencaoMateria);
         edtQtdAvaliacoes = findViewById(R.id.edtQtdAvaliacoes_manutencaoMateria);
+        edtMediaMinima = findViewById(R.id.edtMediaMinima_manutencaoMateria);
         edtData = findViewById(R.id.edtData_manutencaoMateria);
         edtFormula = findViewById(R.id.edtFormula_manutencaoMateria);
         btnDeletar = findViewById(R.id.btnDeletar);
@@ -65,12 +66,13 @@ public class ManutecaoMateria extends AppCompatActivity {
         spnAtividades = findViewById(R.id.spnrAtividades);
         edtNotaAtividade = findViewById(R.id.edtNotaAtividade_manutencaoMateria);
         txtMedia = findViewById(R.id.txtMedia_manutencaoMateria);
-        formMateria = new FormularioMateria(edtMateria, edtQtdAvaliacoes, edtData, edtFormula);
+        formMateria = new FormularioMateria(edtMateria, edtQtdAvaliacoes, edtMediaMinima, edtData, edtFormula);
         materiaDAO = new MateriaDAO(this, FirebaseAuth.getInstance().getUid());
     }
     private void configurarComponentes(){
         edtMateria.setText(materia.getNome());
         edtData.setText(materia.getDataProva());
+        edtMediaMinima.setText(String.valueOf(materia.getMediaMinima()));
         edtFormula.setText(materia.getFormulaMedia());
         edtQtdAvaliacoes.setText(String.valueOf(materia.getQtdAvaliacoes()));
         definirOnTextChanged();
@@ -112,7 +114,8 @@ public class ManutecaoMateria extends AppCompatActivity {
             deletarNotasAtividadesEliminadas(materia.getQtdAvaliacoes(), Integer.valueOf(edtQtdAvaliacoes.getText().toString()));
 
         }
-        materia.setQtdAvaliacoes(Integer.valueOf(edtQtdAvaliacoes.getText().toString()));
+        materia.setQtdAvaliacoes(Integer.parseInt(edtQtdAvaliacoes.getText().toString()));
+        materia.setMediaMinima(Double.parseDouble(edtMediaMinima.getText().toString()));
         materia.setDataProva(edtData.getText().toString());
         materia.setFormulaMedia(edtFormula.getText().toString());
         materia.setNotas(notas);

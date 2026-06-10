@@ -8,24 +8,23 @@ import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FormularioMateria {
 
-    private EditText edtMateria, edtNota, edtData, edtFormula;
+    private EditText edtMateria, edtQtdAvaliacoes, edtMediaMinima, edtData, edtFormula;
 
     private Calendar calendario = Calendar.getInstance();
 
-    public FormularioMateria(EditText edtMateria, EditText edtNota, EditText edtData, EditText edtFormula) {
+    public FormularioMateria(EditText edtMateria, EditText edtQtdAvaliacoes, EditText edtMediaMinima, EditText edtData, EditText edtFormula) {
         this.edtMateria = edtMateria;
-        this.edtNota = edtNota;
+        this.edtQtdAvaliacoes = edtQtdAvaliacoes;
+        this.edtMediaMinima = edtMediaMinima;
         this.edtData = edtData;
         this.edtFormula = edtFormula;
         edtFormula.addTextChangedListener(new TextWatcher() {
@@ -45,10 +44,9 @@ public class FormularioMateria {
                 String original = edtFormula.getText().toString();
                 String upper = original.toUpperCase();
 
-                // Evita loop infinito ao alterar o texto
                 if (!original.equals(upper)) {
                     edtFormula.setText(upper);
-                    edtFormula.setSelection(upper.length()); // Mantém o cursor no final
+                    edtFormula.setSelection(upper.length());
                 }
             }
         });
@@ -57,7 +55,8 @@ public class FormularioMateria {
     public boolean camposValidos(){
         boolean campoVazio = false;
         campoVazio = campoVazio(edtMateria, campoVazio);
-        campoVazio = campoVazio(edtNota, campoVazio);
+        campoVazio = campoVazio(edtQtdAvaliacoes, campoVazio);
+        campoVazio = campoVazio(edtMediaMinima, campoVazio);
         campoVazio = campoVazio(edtData, campoVazio);
         campoVazio = campoVazio(edtFormula, campoVazio);
         if(!validarFormula())
@@ -162,7 +161,7 @@ public class FormularioMateria {
 
     private HashMap<String, Double> gerarListaAux(){
         HashMap<String, Double> listaAux = new HashMap<>();
-        int qtdMaterias = Integer.parseInt(edtNota.getText().toString());
+        int qtdMaterias = Integer.parseInt(edtQtdAvaliacoes.getText().toString());
         for(int i = 0; i < qtdMaterias; i++)
             listaAux.put("A"+(i+1), 1.0);
         return listaAux;

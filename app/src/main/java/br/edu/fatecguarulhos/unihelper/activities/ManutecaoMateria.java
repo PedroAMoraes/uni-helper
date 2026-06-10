@@ -32,7 +32,7 @@ public class ManutecaoMateria extends AppCompatActivity {
     private EditText edtMateria, edtQtdAvaliacoes, edtData, edtFormula, edtNotaAtividade;
     private Spinner spnAtividades;
     private Materia materia;
-    private HashMap<String, Integer> notas;
+    private HashMap<String, Double> notas;
     private FormularioMateria formMateria;
     private MateriaDAO materiaDAO;
     private Button btnAlterar, btnDeletar;
@@ -64,8 +64,6 @@ public class ManutecaoMateria extends AppCompatActivity {
         edtNotaAtividade = findViewById(R.id.edtNotaAtividade_manutencaoMateria);
         formMateria = new FormularioMateria(edtMateria, edtQtdAvaliacoes, edtData, edtFormula);
         materiaDAO = new MateriaDAO(this, FirebaseAuth.getInstance().getUid());
-        double notaFinal = materia.calcularNotaFinal();
-        System.out.println(String.format("Nota Final: %.2f", notaFinal));
     }
     private void configurarComponentes(){
         edtMateria.setText(materia.getNome());
@@ -88,7 +86,6 @@ public class ManutecaoMateria extends AppCompatActivity {
 
             }
         });
-        //exibitNotaAtividade("A1");
     }
     private void exibitNotaAtividade(String atividade){
         edtNotaAtividade.setText(String.valueOf(notas.get(atividade) == null ? 0 : notas.get(atividade)));
@@ -96,7 +93,7 @@ public class ManutecaoMateria extends AppCompatActivity {
     private void atualizarNota(){
         String atividade = spnAtividades.getSelectedItem().toString();
         String inputNota = edtNotaAtividade.getText().toString();
-        int nota = Integer.parseInt(inputNota.isEmpty() ? "0" : inputNota);
+        Double nota = Double.valueOf(inputNota.isEmpty() ? "0" : inputNota);
         notas.put(atividade, nota);
     }
     public void salvarMateria(View view){

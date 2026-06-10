@@ -5,9 +5,7 @@ import android.util.Log;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,7 +13,7 @@ public class Materia {
 
     private String nome, formulaMedia, id, dataProva;
     private int qtdAvaliacoes;
-    private HashMap<String, Integer> notas = new HashMap<>();
+    private HashMap<String, Double> notas = new HashMap<>();
 
     public String getId() {
         return id;
@@ -49,11 +47,11 @@ public class Materia {
 
     public void setQtdAvaliacoes(int qtdAvaliacoes) { this.qtdAvaliacoes = qtdAvaliacoes; }
 
-    public HashMap<String, Integer> getNotas() {
+    public HashMap<String, Double> getNotas() {
         return notas;
     }
 
-    public void setNotas(HashMap<String, Integer> notas) {
+    public void setNotas(HashMap<String, Double> notas) {
         this.notas = notas;
     }
     public double calcularNotaFinal() {
@@ -71,10 +69,10 @@ public class Materia {
 
         Expression expressao = builder.build();
 
-        for (Map.Entry<String, Integer> entrada : notas.entrySet()) {
+        for (Map.Entry<String, Double> entrada : notas.entrySet()) {
             double valorNota = 0.0;
             if (entrada.getValue() != null) {
-                valorNota = entrada.getValue().doubleValue();
+                valorNota = entrada.getValue();
             }
 
             expressao.setVariable(entrada.getKey(), valorNota);

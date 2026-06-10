@@ -133,7 +133,7 @@ public class FormularioMateria {
 
         return qtdParenteses == 0;
     }
-    public boolean todasAtividadesExistem(HashMap<String, Integer> notasMap) {
+    public boolean todasAtividadesExistem(HashMap<String, Double> notasMap) {
         String inputFormula = edtFormula.getText().toString();
 
 
@@ -160,11 +160,11 @@ public class FormularioMateria {
     }
 
 
-    private HashMap<String, Integer> gerarListaAux(){
-        HashMap<String, Integer> listaAux = new HashMap<>();
+    private HashMap<String, Double> gerarListaAux(){
+        HashMap<String, Double> listaAux = new HashMap<>();
         int qtdMaterias = Integer.parseInt(edtNota.getText().toString());
         for(int i = 0; i < qtdMaterias; i++)
-            listaAux.put("A"+(i+1), 1);
+            listaAux.put("A"+(i+1), 1.0);
         return listaAux;
     }
 }

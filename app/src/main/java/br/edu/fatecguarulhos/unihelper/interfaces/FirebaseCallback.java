@@ -6,6 +6,6 @@ import java.util.List;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public interface FirebaseCallback {
-    void onCallbackForAll(HashMap<String, Materia> map);
+    void onCallbackForAll(List<Materia> map);
     void onCallBackByid(Materia materia);
 }

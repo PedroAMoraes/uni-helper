@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
+import java.util.List;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.R;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         materiaDAO.getMaterias(new FirebaseCallback() {
             @Override
-            public void onCallbackForAll(HashMap<String, Materia> map) {
+            public void onCallbackForAll(List<Materia> map) {
                 gerarRecyclerViewMaterias(map);
             }
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void gerarRecyclerViewMaterias(HashMap<String, Materia> map) {
+    private void gerarRecyclerViewMaterias(List<Materia> map) {
         MateriaAdapter adapter = new MateriaAdapter(MainActivity.this, map);
         rvMaterias.setAdapter(adapter);
     }

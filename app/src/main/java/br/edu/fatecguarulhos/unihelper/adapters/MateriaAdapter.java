@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import br.edu.fatecguarulhos.unihelper.R;
 import br.edu.fatecguarulhos.unihelper.activities.ManutecaoMateria;
@@ -24,9 +25,9 @@ public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaH
     private Context context;
     private ArrayList<Materia> materias;
 
-    public MateriaAdapter(Context context, HashMap<String, Materia> materias) {
+    public MateriaAdapter(Context context, List<Materia> materias) {
         this.context = context;
-        this.materias = new ArrayList<>(materias.values());
+        this.materias = new ArrayList<>(materias);
     }
 
     @NonNull

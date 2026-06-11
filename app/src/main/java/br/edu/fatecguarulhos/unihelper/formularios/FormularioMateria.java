@@ -60,8 +60,10 @@ public class FormularioMateria {
         campoVazio = campoVazio(edtMediaMinima, campoVazio);
         campoVazio = campoVazio(edtData, campoVazio);
         campoVazio = campoVazio(edtFormula, campoVazio);
-        if(!validarFormula())
+        if(!validarFormula()){
+            edtFormula.setError("Formula inválida!");
             return false;
+        }
         return !campoVazio;
     }
     private boolean campoVazio(EditText campo, boolean campoVazio){

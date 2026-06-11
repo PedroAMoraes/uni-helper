@@ -13,10 +13,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +68,14 @@ public class MateriaDAO {
 
                         if (aluno != null && aluno.getMaterias() != null) {
                             HashMap<String,Materia> materiaList = aluno.getMaterias();
-                            callback.onCallbackForAll(materiaList);
+                            Map<String, Materia> people = aluno.getMaterias();
+                            // not yet sorted
+                            List<Materia> peopleByAge = new ArrayList<>(people.values());
+
+                            Collections.sort(peopleByAge, Comparator.comparing(Materia::getDataOrdenar));
+
+
+                            callback.onCallbackForAll(peopleByAge);
                         }
                     } else {
                         Log.d("FirestoreData", "No such document exists");
@@ -75,6 +85,8 @@ public class MateriaDAO {
                 }
             }
         });
+
+
     }
     public void deleteMateria(Materia materia){
         materiaColletion.document(uidAluno)

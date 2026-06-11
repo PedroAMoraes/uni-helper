@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
+import java.util.List;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.R;
@@ -29,10 +28,6 @@ import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView lwMaterias;
-    private ArrayList<Materia> listaMaterias;
-    private ArrayAdapter<String> adapter;
-
     private Intent it;
     private RecyclerView rvMaterias;
 
@@ -41,20 +36,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         rvMaterias = findViewById(R.id.rvListaMaterias);
+        rvMaterias.setLayoutManager(new LinearLayoutManager(this));
+
         exibirMaterias();
     }
 
     private void exibirMaterias() {
-        MateriaDAO materiaDAO = new MateriaDAO(this, FirebaseAuth.getInstance().getUid());
+        String uid = FirebaseAuth.getInstance().getUid();
+
+        if (uid == null) {
+            return;
+        }
+
+        MateriaDAO materiaDAO = new MateriaDAO(this, uid);
+
         materiaDAO.getMaterias(new FirebaseCallback() {
             @Override
-            public void onCallbackForAll(HashMap<String, Materia> map) {
+            public void onCallbackForAll(List<Materia> map) {
                 gerarRecyclerViewMaterias(map);
             }
 
@@ -64,45 +70,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void gerarRecyclerViewMaterias(HashMap<String, Materia> map){
-        rvMaterias.setLayoutManager(new LinearLayoutManager(this));
-        MateriaAdapter adapter = new MateriaAdapter(this, map);
+
+    private void gerarRecyclerViewMaterias(List<Materia> map) {
+        MateriaAdapter adapter = new MateriaAdapter(MainActivity.this, map);
         rvMaterias.setAdapter(adapter);
     }
 
-        lwMaterias = findViewById(R.id.lwMaterias);
-        listaMaterias = new ArrayList<>();
-
-        lwMaterias.setOnItemClickListener((parent, view, position, id) -> {
-            Materia materiaSelecionada = listaMaterias.get(position);
-            Intent intent = new Intent(MainActivity.this, ManutecaoMateria.class);
-            intent.putExtra("idMateria", materiaSelecionada.getId());
-            startActivity(intent);
-        });
-    }
-
-    public void perfil(){
+    public void perfil() {
         it = new Intent(getApplicationContext(), PerfilActivity.class);
         startActivity(it);
     }
-    public void cadastrarMaterias(){
+
+    public void cadastrarMaterias() {
         it = new Intent(getApplicationContext(), CadastroMateriaActivity.class);
         startActivity(it);
     }
-    public void chat(View view){
+
+    public void chat(View view) {
         it = new Intent(getApplicationContext(), ChatActivities.class);
         startActivity(it);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.item_perfil) perfil();
-        if(item.getItemId() == R.id.item_novaMateria) cadastrarMaterias();
+        if (item.getItemId() == R.id.item_perfil) {
+            perfil();
+            return true;
+        }
+
+        if (item.getItemId() == R.id.item_novaMateria) {
+            cadastrarMaterias();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

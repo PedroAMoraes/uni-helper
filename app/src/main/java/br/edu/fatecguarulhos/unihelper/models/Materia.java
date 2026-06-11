@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class Materia {
 
-    private String nome, formulaMedia, id, dataProva;
+    private String nome, formulaMedia, id, dataProva, dataOrdenar;
     private int qtdAvaliacoes;
     private HashMap<String, Double> notas = new HashMap<>();
     private double mediaMinima;
@@ -29,6 +29,11 @@ public class Materia {
     }
 
     public void setDataProva(String dataProva) {
+        String[] strData = dataProva.split("/");
+        String dataInicio = strData[2];
+        dataInicio += strData[1];
+        dataInicio += strData[0];
+        dataOrdenar = dataInicio;
         this.dataProva = dataProva;
     }
 
@@ -59,6 +64,15 @@ public class Materia {
     public void setNotas(HashMap<String, Double> notas) {
         this.notas = notas;
     }
+
+    public String getDataOrdenar() {
+        return dataOrdenar;
+    }
+
+    public void setDataOrdenar(String dataOrdenar) {
+        this.dataOrdenar = dataOrdenar;
+    }
+
     public double calcularNotaFinal() {
         preencherNotasAusentes();
 
@@ -103,4 +117,5 @@ public class Materia {
             }
         }
     }
+
 }

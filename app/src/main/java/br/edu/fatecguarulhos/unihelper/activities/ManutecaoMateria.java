@@ -1,9 +1,5 @@
 package br.edu.fatecguarulhos.unihelper.activities;
 
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Locale;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,12 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
+import br.edu.fatecguarulhos.unihelper.DAOs.UsuarioDAO;
 import br.edu.fatecguarulhos.unihelper.R;
 import br.edu.fatecguarulhos.unihelper.formularios.FormularioMateria;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
 public class ManutecaoMateria extends AppCompatActivity {
 
@@ -44,8 +41,7 @@ public class ManutecaoMateria extends AppCompatActivity {
     private MateriaDAO materiaDAO;
     private Button btnAlterar, btnDeletar;
     private String idMateria;
-    private MateriaDAO materiaDAO;
-    private Materia materia;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

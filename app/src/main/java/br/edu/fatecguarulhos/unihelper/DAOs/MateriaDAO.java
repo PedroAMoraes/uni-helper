@@ -2,6 +2,7 @@ package br.edu.fatecguarulhos.unihelper.DAOs;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -47,7 +48,7 @@ public class MateriaDAO {
         materiaColletion.document(uidAluno)
                 .update(("materias." + materia.getId()), materia)
                 .addOnSuccessListener(aVoid -> {
-
+                    Toast.makeText(context, "Matéria salva!", Toast.LENGTH_SHORT).show();
                 });
     }
     public void getMaterias(FirebaseCallback callback){
@@ -79,7 +80,7 @@ public class MateriaDAO {
         materiaColletion.document(uidAluno)
                 .update(("materias." + materia.getId()), FieldValue.delete())
                 .addOnSuccessListener(aVoid -> {
-
+                    Toast.makeText(context, "Matéria excluida!", Toast.LENGTH_SHORT).show();
                 });
     }
 }

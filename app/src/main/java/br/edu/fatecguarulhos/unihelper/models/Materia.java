@@ -60,37 +60,47 @@ public class Materia {
         this.notas = notas;
     }
     public double calcularNotaFinal() {
-        if (notas == null || notas.isEmpty()) {
-            return 0.0;
-        }
-
-        String formula = formulaMedia;
-
-        ExpressionBuilder builder = new ExpressionBuilder(formula);
-
-        for (String chaveAtividade : notas.keySet()) {
-            builder.variable(chaveAtividade);
-        }
-
-        Expression expressao = builder.build();
-
-        for (Map.Entry<String, Double> entrada : notas.entrySet()) {
-            double valorNota = 0.0;
-            if (entrada.getValue() != null) {
-                valorNota = entrada.getValue();
-            }
-
-            expressao.setVariable(entrada.getKey(), valorNota);
-        }
+        preencherNotasAusentes();
 
         try {
+            String formula = formulaMedia;
+            ExpressionBuilder builder = new ExpressionBuilder(formula);
+
+            for (String chaveAtividade : notas.keySet()) {
+                builder.variable(chaveAtividade);
+            }
+
+            Expression expressao = builder.build();
+
+            for (Map.Entry<String, Double> entrada : notas.entrySet()) {
+                double valorNota = (entrada.getValue() != null) ? entrada.getValue() : 0.0;
+                expressao.setVariable(entrada.getKey(), valorNota);
+            }
+
             return expressao.evaluate();
+
+        } catch (IllegalArgumentException e) {
+            Log.e("ErroCalculo", "Fórmula inválida ou variável faltando: " + e.getMessage(), e);
+            return 0.0;
         } catch (ArithmeticException e) {
-            Log.e("ErroCalculo", "Erro de divisão por zero na fórmula: " + e.getMessage());
+            Log.e("ErroCalculo", "Erro de divisão por zero na fórmula: " + e.getMessage(), e);
             return 0.0;
         } catch (Exception e) {
-            Log.e("ErroCalculo", "Erro inesperado ao calcular: " + e.getMessage());
+            Log.e("ErroCalculo", "Erro inesperado ao calcular: " + e.getMessage(), e);
             return 0.0;
+        }
+    }
+    private void preencherNotasAusentes() {
+        if (this.notas == null) {
+            this.notas = new HashMap<>();
+        }
+
+        for (int i = 1; i <= qtdAvaliacoes; i++) {
+            String chave = "A" + i;
+
+            if (!this.notas.containsKey(chave) || this.notas.get(chave) == null) {
+                this.notas.put(chave, 0.0);
+            }
         }
     }
 }

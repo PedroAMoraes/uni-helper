@@ -66,7 +66,7 @@ public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaH
         void setDetails(Materia materia){
             jsonMateria = new Gson().toJson(materia);
             txtNome.setText("Materia: " + materia.getNome());
-            txtNota.setText("Nota: WIP" );
+            txtNota.setText("Média: " + materia.calcularNotaFinal() + "   -   Média mínima: " + materia.getMediaMinima() );
             txtData.setText("Data: " + materia.getDataProva());
         }
     }

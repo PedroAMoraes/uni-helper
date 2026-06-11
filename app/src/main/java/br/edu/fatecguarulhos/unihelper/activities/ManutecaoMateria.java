@@ -113,7 +113,7 @@ public class ManutecaoMateria extends AppCompatActivity {
     private void atualizarNota(){
         String atividade = spnAtividades.getSelectedItem().toString();
         String inputNota = edtNotaAtividade.getText().toString();
-        Double nota = Double.valueOf(inputNota.isEmpty() ? "0" : inputNota);
+        Double nota = inputNota.isEmpty() ? 0.0 : Double.parseDouble(inputNota);
         notas.put(atividade, nota);
     }
     public void salvarMateria(View view){
@@ -136,7 +136,10 @@ public class ManutecaoMateria extends AppCompatActivity {
         atualizarMedia();
     }
     private void atualizarMedia(){
-        txtMedia.setText("Media final: "+ String.format("%.2f", materia.calcularNotaFinal()));
+        String strMedia = "Media final: ";
+        double media = materia.calcularNotaFinal();
+        strMedia += String.format("%.2f", media);
+        txtMedia.setText(strMedia);
     }
     private void deletarNotasAtividadesEliminadas(int qtdAvaliacoes, Integer notaQtdAvaliacoes) {
         for(int i = notaQtdAvaliacoes; i < qtdAvaliacoes; i ++){
@@ -153,6 +156,7 @@ public class ManutecaoMateria extends AppCompatActivity {
 
     public void deletarMateria(View view){
         materiaDAO.deleteMateria(materia);
+        finish();
     }
 
     public void voltar(View view){

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -26,6 +28,10 @@ import br.edu.fatecguarulhos.unihelper.interfaces.FirebaseCallback;
 import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView lwMaterias;
+    private ArrayList<Materia> listaMaterias;
+    private ArrayAdapter<String> adapter;
 
     private Intent it;
     private RecyclerView rvMaterias;
@@ -64,21 +70,27 @@ public class MainActivity extends AppCompatActivity {
         rvMaterias.setAdapter(adapter);
     }
 
-    public void cadastrarMaterias(View view){
-        it = new Intent(getApplicationContext(), CadastroMateriaActivity.class);
-        startActivity(it);
+        lwMaterias = findViewById(R.id.lwMaterias);
+        listaMaterias = new ArrayList<>();
+
+        lwMaterias.setOnItemClickListener((parent, view, position, id) -> {
+            Materia materiaSelecionada = listaMaterias.get(position);
+            Intent intent = new Intent(MainActivity.this, ManutecaoMateria.class);
+            intent.putExtra("idMateria", materiaSelecionada.getId());
+            startActivity(intent);
+        });
     }
 
-    public void perfil(View view){
-        it = new Intent(getApplicationContext(), PerfilActivity.class);
-        startActivity(it);
-    }
     public void perfil(){
         it = new Intent(getApplicationContext(), PerfilActivity.class);
         startActivity(it);
     }
     public void cadastrarMaterias(){
         it = new Intent(getApplicationContext(), CadastroMateriaActivity.class);
+        startActivity(it);
+    }
+    public void chat(View view){
+        it = new Intent(getApplicationContext(), ChatActivities.class);
         startActivity(it);
     }
     @Override

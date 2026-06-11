@@ -1,9 +1,12 @@
 package br.edu.fatecguarulhos.unihelper.activities;
 
+import static android.icu.text.DisplayOptions.DisplayLength.LENGTH_SHORT;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,6 +71,8 @@ public class CadastroMateriaActivity extends AppCompatActivity {
     public void salvarMateria(View view){
         if(formMateria.camposValidos())
             materiaDAO.cadastrarMateria(criarMateria());
+        Toast.makeText(CadastroMateriaActivity.this,"Materia cadastrada",Toast.LENGTH_SHORT).show();
+
     }
     private Materia criarMateria(){
         Materia materia = new Materia();

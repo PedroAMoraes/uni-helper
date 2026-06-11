@@ -3,10 +3,23 @@ plugins {
 
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
+    id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
     namespace = "br.edu.fatecguarulhos.unihelper"
+
+    packaging{
+        resources{
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -21,6 +34,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String","GEMINI_API_KEY", "\"${project.findProperty("GEMINI_API_KEY")}\"")
+    }
+
+    buildFeatures{
+        buildConfig = true
     }
 
     buildTypes {
@@ -45,9 +64,13 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)
+    implementation(libs.cardview)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.material)
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation(libs.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

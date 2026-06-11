@@ -1,5 +1,9 @@
 package br.edu.fatecguarulhos.unihelper.activities;
 
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Locale;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -39,6 +43,9 @@ public class ManutecaoMateria extends AppCompatActivity {
     private FormularioMateria formMateria;
     private MateriaDAO materiaDAO;
     private Button btnAlterar, btnDeletar;
+    private String idMateria;
+    private MateriaDAO materiaDAO;
+    private Materia materia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

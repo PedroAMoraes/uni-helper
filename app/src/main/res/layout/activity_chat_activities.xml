@@ -29,6 +29,7 @@
             android:id="@+id/btnEnviar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#2a71e5 "
             android:text="Enviar" />
 
     </LinearLayout>

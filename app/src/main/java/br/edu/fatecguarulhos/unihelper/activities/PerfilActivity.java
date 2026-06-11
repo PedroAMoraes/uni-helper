@@ -13,9 +13,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import br.edu.fatecguarulhos.unihelper.DAOs.UsuarioDAO;
 import br.edu.fatecguarulhos.unihelper.R;
+import br.edu.fatecguarulhos.unihelper.models.Usuario;
 
 public class PerfilActivity extends AppCompatActivity {
 
@@ -32,14 +35,45 @@ public class PerfilActivity extends AppCompatActivity {
             return insets;
         });
         inicializarComponentes();
+        carregarDadosUsuario();
     }
     private void inicializarComponentes(){
         text_nome_perfil = findViewById(R.id.text_nome_perfil);
         text_email_perfil=findViewById(R.id.text_email_perfil);
-        text_nome_perfil.setText("teste");
+    }
 
+    private void carregarDadosUsuario() {
+        FirebaseUser usuarioAtual = FirebaseAuth.getInstance().getCurrentUser();
 
+        if (usuarioAtual == null) {
+            text_nome_perfil.setText("Usuário não logado");
+            text_email_perfil.setText("");
+            return;
+        }
 
+        String uid = usuarioAtual.getUid();
+
+        FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Usuario usuario = documentSnapshot.toObject(Usuario.class);
+
+                        if (usuario != null) {
+                            text_nome_perfil.setText(usuario.getNome());
+                            text_email_perfil.setText(usuario.getEmail());
+                        }
+                    } else {
+                        text_nome_perfil.setText("Nome não encontrado");
+                        text_email_perfil.setText(usuarioAtual.getEmail());
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    text_nome_perfil.setText("Erro ao carregar nome");
+                    text_email_perfil.setText(usuarioAtual.getEmail());
+                });
     }
     public void voltar(View view){
         finish();

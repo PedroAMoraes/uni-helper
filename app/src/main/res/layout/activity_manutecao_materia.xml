@@ -124,6 +124,7 @@
             android:id="@+id/btnAlterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#2a71e5"
             android:onClick="salvarMateria"
             android:text="Alterar" />
 
@@ -131,6 +132,7 @@
             android:id="@+id/btnDeletar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#2a71e5"
             android:onClick="deletarMateria"
             android:text="Deletar" />
     </LinearLayout>

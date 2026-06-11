@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 
+import br.edu.fatecguarulhos.unihelper.DAOs.ChatDAO;
 import br.edu.fatecguarulhos.unihelper.R;
 import br.edu.fatecguarulhos.unihelper.ia.ChatAdapter;
 import br.edu.fatecguarulhos.unihelper.ia.GeminiCallBack;
@@ -26,30 +27,29 @@ import br.edu.fatecguarulhos.unihelper.ia.MessageModel;
 public class ChatActivities extends AppCompatActivity {
 
     private GeminiService geminiService;
+    private ChatDAO chatDAO;
+
     private Button btnEnviar;
     private EditText edtPergunta;
 
     private RecyclerView recyclerMensagens;
     private ChatAdapter chatAdapter;
     private ArrayList<MessageModel> mensagens;
-   // private TextView  txtResposta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_chat_activities);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-
         btnEnviar = findViewById(R.id.btnEnviar);
         edtPergunta = findViewById(R.id.edtPergunta);
-        //txtResposta = findViewById(R.id.txtResposta);
-
         recyclerMensagens = findViewById(R.id.recyclerMensagens);
 
         mensagens = new ArrayList<>();
@@ -59,44 +59,100 @@ public class ChatActivities extends AppCompatActivity {
         recyclerMensagens.setAdapter(chatAdapter);
 
         geminiService = new GeminiService();
+        chatDAO = new ChatDAO();
+
+        carregarHistorico();
+
         btnEnviar.setOnClickListener(v -> enviar(v));
     }
 
-   public void enviar(View view) {
+    private void carregarHistorico() {
+        chatDAO.carregarHistorico(queryDocumentSnapshots -> {
+            mensagens.clear();
 
-       String pergunta = edtPergunta.getText().toString().trim();
+            for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                MessageModel mensagem = doc.toObject(MessageModel.class);
 
-       if (pergunta.isEmpty()) {
-           return;
-       }
+                if (mensagem != null) {
+                    mensagens.add(mensagem);
+                }
+            }
 
-       mensagens.add(new MessageModel(pergunta, true));
-       chatAdapter.notifyItemInserted(mensagens.size() - 1);
-       recyclerMensagens.scrollToPosition(mensagens.size() - 1);
+            chatAdapter.notifyDataSetChanged();
 
-       edtPergunta.setText("");
+            if (!mensagens.isEmpty()) {
+                recyclerMensagens.scrollToPosition(mensagens.size() - 1);
+            }
+        });
+    }
 
-       geminiService.enviarPergunta(pergunta, new GeminiCallBack() {
-           @Override
-           public void onResposta(String resposta) {
+    private String montarContextoDaConversa() {
+        StringBuilder contexto = new StringBuilder();
 
-               runOnUiThread(() -> {
-                   mensagens.add(new MessageModel(resposta, false));
-                   chatAdapter.notifyItemInserted(mensagens.size() - 1);
-                   recyclerMensagens.scrollToPosition(mensagens.size() - 1);
-               });
-           }
+        contexto.append("Você é o assistente do aplicativo UniHelper.\n");
+        contexto.append("Use o histórico abaixo para responder mantendo o contexto da conversa.\n\n");
 
-           @Override
-           public void onErro(String erro) {
+        for (MessageModel msg : mensagens) {
+            if (msg.isUsuario()) {
+                contexto.append("Usuário: ");
+            } else {
+                contexto.append("Assistente: ");
+            }
 
-               runOnUiThread(() -> {
-                   mensagens.add(new MessageModel("Erro: " + erro, false));
-                   chatAdapter.notifyItemInserted(mensagens.size() - 1);
-                   recyclerMensagens.scrollToPosition(mensagens.size() - 1);
-               });
-           }
-       });
-   }
+            contexto.append(msg.getTexto());
+            contexto.append("\n");
+        }
 
+        contexto.append("\nResponda somente a última mensagem do usuário.");
+
+        return contexto.toString();
+    }
+
+    public void enviar(View view) {
+        String pergunta = edtPergunta.getText().toString().trim();
+
+        if (pergunta.isEmpty()) {
+            return;
+        }
+
+        MessageModel mensagemUsuario = new MessageModel(pergunta, true);
+
+        mensagens.add(mensagemUsuario);
+        chatAdapter.notifyItemInserted(mensagens.size() - 1);
+        recyclerMensagens.scrollToPosition(mensagens.size() - 1);
+
+        chatDAO.salvarMensagem(mensagemUsuario);
+
+        edtPergunta.setText("");
+
+        String contextoCompleto = montarContextoDaConversa();
+
+        geminiService.enviarPergunta(contextoCompleto, new GeminiCallBack() {
+            @Override
+            public void onResposta(String resposta) {
+                runOnUiThread(() -> {
+                    MessageModel mensagemIA = new MessageModel(resposta, false);
+
+                    mensagens.add(mensagemIA);
+                    chatAdapter.notifyItemInserted(mensagens.size() - 1);
+                    recyclerMensagens.scrollToPosition(mensagens.size() - 1);
+
+                    chatDAO.salvarMensagem(mensagemIA);
+                });
+            }
+
+            @Override
+            public void onErro(String erro) {
+                runOnUiThread(() -> {
+                    MessageModel mensagemErro = new MessageModel("Erro: " + erro, false);
+
+                    mensagens.add(mensagemErro);
+                    chatAdapter.notifyItemInserted(mensagens.size() - 1);
+                    recyclerMensagens.scrollToPosition(mensagens.size() - 1);
+
+                    chatDAO.salvarMensagem(mensagemErro);
+                });
+            }
+        });
+    }
 }

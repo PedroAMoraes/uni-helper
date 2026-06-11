@@ -14,15 +14,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashMap;
 
-import br.edu.fatecguarulhos.unihelper.models.Materia;
+import br.edu.fatecguarulhos.unihelper.DAOs.MateriaDAO;
 import br.edu.fatecguarulhos.unihelper.R;
+import br.edu.fatecguarulhos.unihelper.adapters.MateriaAdapter;
+import br.edu.fatecguarulhos.unihelper.interfaces.FirebaseCallback;
+import br.edu.fatecguarulhos.unihelper.models.Materia;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
 
     private Intent it;
+    private RecyclerView rvMaterias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,29 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        rvMaterias = findViewById(R.id.rvListaMaterias);
+        exibirMaterias();
+    }
+
+    private void exibirMaterias() {
+        MateriaDAO materiaDAO = new MateriaDAO(this, FirebaseAuth.getInstance().getUid());
+        materiaDAO.getMaterias(new FirebaseCallback() {
+            @Override
+            public void onCallbackForAll(HashMap<String, Materia> map) {
+                gerarRecyclerViewMaterias(map);
+            }
+
+            @Override
+            public void onCallBackByid(Materia materia) {
+
+            }
+        });
+    }
+    private void gerarRecyclerViewMaterias(HashMap<String, Materia> map){
+        rvMaterias.setLayoutManager(new LinearLayoutManager(this));
+        MateriaAdapter adapter = new MateriaAdapter(this, map);
+        rvMaterias.setAdapter(adapter);
+    }
 
         lwMaterias = findViewById(R.id.lwMaterias);
         listaMaterias = new ArrayList<>();
@@ -77,5 +104,11 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.item_perfil) perfil();
         if(item.getItemId() == R.id.item_novaMateria) cadastrarMaterias();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        exibirMaterias();
     }
 }

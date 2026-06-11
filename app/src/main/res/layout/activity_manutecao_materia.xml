@@ -19,7 +19,7 @@
             android:layout_height="43dp" />
 
         <EditText
-            android:id="@+id/edtMateriaManu"
+            android:id="@+id/edtMateria_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -27,7 +27,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/edtNotaManu"
+            android:id="@+id/edtQtdAvaliacoes_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -35,20 +35,50 @@
             android:inputType="number" />
 
         <EditText
-            android:id="@+id/edtDataManu"
+            android:id="@+id/edtMediaMinima_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/edtData_manutencaoMateria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
             android:ems="10"
             android:hint="Data da Proxima Prova/Projeto"
             android:inputType="date" />
 
         <EditText
-            android:id="@+id/edtFormulaManu"
+            android:id="@+id/edtFormula_manutencaoMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Formula de Média da Matéria"
-            android:inputType="text" />
+            android:inputType="text"
+            android:digits="0123456789Aa+-*/() " />
+
+        <Spinner
+            android:id="@+id/spnrAtividades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <EditText
+            android:id="@+id/edtNotaAtividade_manutencaoMateria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number|numberDecimal" />
+
+        <TextView
+            android:id="@+id/txtMedia_manutencaoMateria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
         <Space
             android:layout_width="match_parent"
@@ -58,12 +88,14 @@
             android:id="@+id/btnAlterar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="salvarMateria"
             android:text="Alterar" />
 
         <Button
             android:id="@+id/btnDeletar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="deletarMateria"
             android:text="Deletar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

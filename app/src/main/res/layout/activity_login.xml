@@ -44,6 +44,7 @@
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#2a71e5 "
             android:onClick="efetuarLogin"
             android:text="Login" />
 
@@ -51,6 +52,7 @@
             android:id="@+id/button_cadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#2a71e5 "
             android:onClick="telaCadastro"
             android:text="Cadastro" />
     </LinearLayout>

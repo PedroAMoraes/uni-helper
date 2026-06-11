@@ -52,11 +52,13 @@
         <activity
             android:name=".activities.ManutecaoMateria"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.ChatActivities"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".activities.MainActivity"/>
     </application>
 
 </manifest>

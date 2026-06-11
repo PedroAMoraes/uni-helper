@@ -99,6 +99,7 @@
             android:id="@+id/btnSalvarMateria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#2a71e5 "
             android:onClick="salvarMateria"
             android:text="Salvar" />
 

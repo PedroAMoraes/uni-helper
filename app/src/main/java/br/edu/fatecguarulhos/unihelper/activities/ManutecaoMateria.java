@@ -44,8 +44,6 @@ public class ManutecaoMateria extends AppCompatActivity {
     private MateriaDAO materiaDAO;
     private Button btnAlterar, btnDeletar;
     private String idMateria;
-    private MateriaDAO materiaDAO;
-    private Materia materia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

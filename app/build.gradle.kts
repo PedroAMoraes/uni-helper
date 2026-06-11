@@ -64,7 +64,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)
-    implementation(libs.cardview)
+    implementation("com.google.android.material:material:1.12.0")
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.material)
